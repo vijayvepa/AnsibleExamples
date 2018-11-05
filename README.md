@@ -92,3 +92,37 @@ Error creating machine: Error in driver during machine creation: Machine didn't 
 https://github.com/docker/machine/issues/1752
 
 Currently stuck on this issue.
+
+# Unable to install Virtual Box
+
+See https://discussions.apple.com/thread/8087342
+
+> There is a workaround for this. It isn't a great workaround, security-wise, but it does get you back to the behavior of macOS 10.12. Basically, you can turn off the security feature requiring user approval of Kernel Extensions.
+
+>First, boot into Recovery Mode by rebooting and pressing and holding command-R as soon as you see the Apple logo. On my machine, I had to hold command-R for quite a while, at least 60 seconds.
+
+>Eventually you will see a screen that gives you a couple of options, including reinstalling or running Disk Utility. If you look at the top of the screen, where the Apple menu would ordinarily be, you will see a "Utilities" drop-down menu. Click on that and select Terminal. A window will open up that allows you to type text-based terminal commands.
+
+> You will see a "$" prompt in the terminal window. Type the following:
+
+```
+spctl kext-consent disable
+```
+
+> then press Return. You should see:
+```
+ Kernel Extension User Consent: DISABLED
+ Please restart for changes to take effect.
+``` 
+
+>Then reboot your Mac, and you should be good. You will no longer see the notification panes telling you a Kernel Extension was blocked; they will all be automatically allowed, just as they were in macOS 10.12.
+
+>I would recommend waiting until 10.13.1 or 10.13.2 to see if the issue gets fixed, and then undoing this fix by repeating the same steps, but typing
+
+
+```
+spctl kext-consent enable
+```
+
+
+instead.
