@@ -1,4 +1,6 @@
-# Django Admin Template Project
+# Django 
+
+## Admin Template Project
 
 The following files are created by the `django-admin startproject todobackend` command
 
@@ -14,3 +16,9 @@ The following files are created by the `django-admin startproject todobackend` c
 
 
 For the purpose of CD, we need to change `project-root` name to `src`.
+
+## Virtual Environments
+
+Virtual environments allow python applications to run in sandboxed environment - including specific version of python
+
+![Image](images/virtualenvironments.png)
