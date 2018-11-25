@@ -1,2 +1,2 @@
-virtualenv venv 
+virtualenv src/venv 
 
