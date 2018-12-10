@@ -5,6 +5,11 @@
 - [1. Django](#1-django)
 	- [1.1. Admin Template Project](#11-admin-template-project)
 	- [1.2. Virtual Environments](#12-virtual-environments)
+	- [1.3. Adding Django App](#13-adding-django-app)
+		- [1.3.1. Settings Changes](#131-settings-changes)
+	- [1.4. Adding Database Models](#14-adding-database-models)
+	- [1.5. Adding Serializers](#15-adding-serializers)
+	- [1.6. Adding Views](#16-adding-views)
 
 <!-- /TOC -->
 
@@ -52,7 +57,7 @@ pip3 install djangorestframework==3.3
 pip3 install django-cors-headers==1.1
 ```
 
-## Adding Django App
+## 1.3. Adding Django App
 
 - Add an app to our setup
 
@@ -61,7 +66,7 @@ source venv/bin/activate
 python src/manage.py startapp todo
 ```
 
-### Settings Changes
+### 1.3.1. Settings Changes
 - Add the frameworks and apps to [src/todobackend/settings.py]() in installed_apps
 
 ```python
@@ -95,7 +100,7 @@ MIDDLEWARE_CLASSES = [
 CORS_ORIGIN_ALLOW_ALL = True
 ```
 
-## Adding Database Models
+## 1.4. Adding Database Models
 
 - Add `TodoItem` model to the [/src/todo/models.py]()
 - Add a migration as below:
@@ -113,3 +118,58 @@ python src/manage.py migrate
 ```
 
 This will create an initial database at [src/db.sqlite3]()
+
+## 1.5. Adding Serializers
+- PyCharm cannot read references if [venv]() folder is outside of [src]().
+- I have updated all the scripts to move [venv]() folder inside of [src]().
+
+We add a hyperlinked serializer as below in a new file [serializers.py]() under the [todo]() folder
+
+```py
+from rest_framework import serializers
+from todo.models import TodoItem
+
+
+class TodoItemSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.ReadOnlyField()
+
+    class Meta:
+        model = TodoItem
+        fields = ("url", "title", "completed", "order")
+```
+
+## 1.6. Adding Views
+
+Reference: http://www.django-rest-framework.org/api-guide/views
+
+We add a derived class of `ModelViewSet` and setup create and delete actions as below:
+
+```py
+from django.shortcuts import render
+
+from todo.models import TodoItem
+from todo.serializers import TodoItemSerializer
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.reverse import reverse
+from rest_framework.decorators import list_route
+from rest_framework.response import Response
+
+
+class TodoItemViewSet(viewsets.ModelViewSet):
+    queryset = TodoItem.objects.all()
+    serializer_class = TodoItemSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save
+
+        instance.url = reverse('todoitem-detail', args=[instance.pk], request=self.request)
+        # format: http://<fqdn>:<port>/todos/<primarykey>
+        # example: http://localhost:8000/todos/15
+
+        instance.save()
+
+    def delete(self, request):
+        TodoItem.objects.all().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+```

@@ -102,3 +102,16 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea/AnsibleExamples.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+02.Django-RestApi/.idea/workspace.xml
+02.Django-RestApi/.idea/02.Django-RestApi.iml
+02.Django-RestApi/.idea/encodings.xml
+02.Django-RestApi/.idea/misc.xml
+02.Django-RestApi/.idea/modules.xml
+02.Django-RestApi/.idea/vcs.xml
+.vscode/settings.json
