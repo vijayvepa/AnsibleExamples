@@ -14,7 +14,7 @@ class TodoItemViewSet(viewsets.ModelViewSet):
     serializer_class = TodoItemSerializer
 
     def perform_create(self, serializer):
-        instance = serializer.save
+        instance = serializer.save()
 
         instance.url = reverse('todoitem-detail', args=[instance.pk], request=self.request)
         # format: http://<fqdn>:<port>/todos/<primarykey>
