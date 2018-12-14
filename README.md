@@ -126,3 +126,4 @@ spctl kext-consent enable
 
 
 instead.
+

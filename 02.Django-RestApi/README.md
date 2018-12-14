@@ -173,3 +173,26 @@ class TodoItemViewSet(viewsets.ModelViewSet):
         TodoItem.objects.all().delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 ```
+
+## 1.7. Troubleshooting
+
+### 1.7.1. ModuleNotFoundError: No module named 'ConfigParser'
+
+https://stackoverflow.com/questions/14087598/python-3-importerror-no-module-named-configparser
+https://stackoverflow.com/questions/49977768/error-datetime-datetime-object-has-no-attribute-split-in-django-1-11-4/50546125#50546125
+
+instead of :
+
+```
+
+source src/venv/bin/activate
+pip3 install mysql-python
+```
+
+Use this:
+```
+brew install mysql
+pip3 install mysqlclient
+source src/venv/bin/activate
+pip3 install mysqlclient
+```
