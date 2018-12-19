@@ -1,0 +1,1 @@
+time sh 07.run-dev-image.sh
