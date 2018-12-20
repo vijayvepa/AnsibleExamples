@@ -1,6 +1,6 @@
 #! /bin/bash
 # Activate virtual environment
-. /appenv/bin/bash
+. /appenv/bin/activate
 
 # Install appplication test requirements
 pip install -r requirements_test.txt
