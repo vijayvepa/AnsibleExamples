@@ -10,7 +10,9 @@ setup(
     install_requires = [ "Django>=1.9, <2.0",
                          "django-cors-headers>=1.1.0",
                          "djangorestframework>=3.3.0",
-                         "mysqlclient>=1.3.14", ],
+                         "mysqlclient>=1.3.14",
+                         "uswgi>=2.0", # communicates with NGINX
+                         ],
     extras_require = {
         "test": [ "colorama>=0.4.1",
                   "coverage>=4.5.2",
