@@ -23,3 +23,15 @@ See https://caremad.io/2013/07/setup-vs-requirement/
 
 ## MANIFEST.in
 See https://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template
+
+# Release Environment
+
+Design:
+![](ReleaseEnvironment.png)
+
+## uWSGI options
+
+http://uwsgi-docs.readthedocs.org/en/latest/Options.html
+
+- `ports` will expose a port to outside world
+-  `expose` will only allow internal comm
