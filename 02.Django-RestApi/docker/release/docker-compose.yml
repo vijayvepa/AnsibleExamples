@@ -31,6 +31,7 @@ app:
     MYSQL_HOST: db
     MYSQL_USER: todo 
     MYSQL_PASSWORD: password 
+    DEBUG: "false" 
   command:
     - uwsgi
     - "--socket /var/www/todobackend/todobackend.sock"
@@ -48,6 +49,8 @@ webroot:
 
 nginx:
   image: nginx
+  links:
+    - app 
   volumes:
     - ./todobackend.conf:/etc/nginx/conf.d/todobackend.conf 
   ports:

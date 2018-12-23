@@ -3,7 +3,6 @@ docker-compose kill
 docker-compose rm -f 
 docker-compose build 
 docker-compose up agent 
-docker-compose up app 
-docker images
-
-docker-compose up builder
+docker-compose run --rm app manage.py collectstatic --no-input
+docker-compose run --rm app manage.py migrate --noinput
+docker-compose up nginx
