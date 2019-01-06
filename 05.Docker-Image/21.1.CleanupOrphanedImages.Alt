@@ -1,0 +1,5 @@
+docker images -q -f dangling=true  -f label=application=todobackend
+echo '---'
+docker images -q -f dangling=true -f label=application=todobackend | xargs -I ARGS docker rmi -f ARGS
+echo '---'
+docker images -q -f dangling=true  -f label=application=todobackend
