@@ -47,7 +47,8 @@ webroot:
   entrypoint: "true"
 
 nginx:
-  image: nginx
+  build: .
+  dockerfile: Dockerfile.nginx
   links:
     - app 
   volumes:
