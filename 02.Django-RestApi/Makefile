@@ -54,6 +54,9 @@ test:
 build:
 	${INFO} "Building application artifacts"
 	@docker-compose  -p $(DEV_PROJECT)   -f $(DEV_COMPOSE_FILE) up builder
+	${INFO} "Copying artifacts to target folder..."
+	# e.g. docker cp CONTAINER_ID:/wheelhouse/. target
+	docker cp $$(docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) ps -q builder):/wheelhouse/. target
 	${INFO} "Removing orphaned images.."
 	@docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
 	
