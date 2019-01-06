@@ -6,7 +6,7 @@ REPO_NAME ?= todobackend
 # ?= means this is the default value, overridable from env var
 
 #Filenames
-DEV_COMPOSE_FILE := docker/dev/build/docker-compose.yml
+DEV_COMPOSE_FILE := docker/dev/builder/docker-compose.yml
 REL_COMPOSE_FILE := docker/release/docker-compose.yml
 
 # Docker compose project names

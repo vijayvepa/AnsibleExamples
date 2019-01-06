@@ -1,4 +1,4 @@
-cd ../02.Django-RestApi/docker/dev/build
+cd ../02.Django-RestApi/docker/dev/builder
 docker-compose kill
 docker-compose rm -f 
 docker-compose build 
