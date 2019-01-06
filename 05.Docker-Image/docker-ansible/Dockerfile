@@ -22,4 +22,4 @@ WORKDIR /ansible
 
 #Entrypoint
 ENTRYPOINT ["ansible-playbook"]
-CMD ["site.yml"]
+CMD ["probe.yml"]
