@@ -14,32 +14,60 @@ REL_PROJECT := $(PROJECT_NAME)$(BUILD_ID)
 # if BUILD_ID is not set, this just evaluates to an empty value, e.g, REL_PROJECT=todobackend, if set BUILDID= 1045,  it will be REL_PROJECT = todobackend1045
 DEV_PROJECT := $(REL_PROJECT)-dev
 
+# Cosmetics - See http://linuxmanage.com/colored-man-pages-log-files.html
+YELLOW := "\\e[0;33m"
+NO_COLOR := "\\e[0m"
+
+# Shell Functions
+# @bash is same as @echo off in windows
+# Only use single quotes, $$1 will be converted to $1
+# VALUE is placeholder reference to the arg
+INFO := @bash -c '\
+	printf $(YELLOW); \
+	echo "=> $$1"; \
+	printf $(NO_COLOR)' VALUE 
+
+
+
 .PHONY: test build release clean 
 # if we don't have .PHONY declaration, it will treat test, build and release as files and check if they are up to date
 
 clean:
+	${INFO} "Destroying dev env..."
 	docker-compose  -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) kill
 	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  rm -f 
 		docker-compose  -f $(REL_COMPOSE_FILE) kill
 	docker-compose   -f $(REL_COMPOSE_FILE)  rm -f -v 
 	
 test:
-	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) kill
-	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) rm -f -v
-	docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS 
-	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) build 
-	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up agent 
-	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up test 
-	docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
+	${INFO} "Removing Existing Images..."
+	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) kill
+	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) rm -f -v
+	@docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS 
+	${INFO} "Building Images..."
+	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) build 
+	${INFO} "Ensuring database is ready..."
+	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up agent 
+	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up test 
+	${INFO} "Removing orphaned images.."
+	@docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
 build:
-	docker-compose  -p $(DEV_PROJECT)   -f $(DEV_COMPOSE_FILE) up builder
-	docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
+	${INFO} "Building application artifacts"
+	@docker-compose  -p $(DEV_PROJECT)   -f $(DEV_COMPOSE_FILE) up builder
+	${INFO} "Removing orphaned images.."
+	@docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
 	
 
 release:
-	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  build 
-	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  up agent 
-	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  run --rm app manage.py collectstatic --no-input
-	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  run --rm app manage.py migrate --noinput
-	docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  up test
+	${INFO} "Building release images"
+	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  build 
+	${INFO} "Ensure db is ready.."
+	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  up agent 
+	${INFO} "Collecting static files..."
+	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  run --rm app manage.py collectstatic --no-input
+	${INFO} "Running db migration"
+	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  run --rm app manage.py migrate --noinput
+	${INFO} "Running acceptance tests..."
+	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  up test
+	${INFO} "Remove dangling images..."
 	docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  

@@ -196,3 +196,7 @@ pip3 install mysqlclient
 source src/venv/bin/activate
 pip3 install mysqlclient
 ```
+
+## 1.8 Bash Color Codes
+
+See http://linuxmanage.com/colored-man-pages-log-files.html
