@@ -48,7 +48,10 @@ test:
 	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) build 
 	${INFO} "Ensuring database is ready..."
 	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up agent 
-	@docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up test 
+	${INFO} "Running tests..."
+	docker-compose  -p $(DEV_PROJECT)  -f $(DEV_COMPOSE_FILE) up test 
+	${INFO} "Copying reports..."
+	docker cp $$(docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) ps -q test):/reports/. reports 
 	${INFO} "Removing orphaned images.."
 	@docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  
 build:
@@ -72,5 +75,7 @@ release:
 	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  run --rm app manage.py migrate --noinput
 	${INFO} "Running acceptance tests..."
 	@docker-compose  -p $(REL_PROJECT)  -f $(REL_COMPOSE_FILE)  up test
+	${INFO} "Copying reports..."
+	docker cp $$(docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) ps -q test):/reports/. reports 
 	${INFO} "Remove dangling images..."
 	docker images -q -f dangling=true -f label=application=$(REPO_NAME) | xargs -I ARGS docker rmi -f ARGS  

@@ -200,3 +200,34 @@ pip3 install mysqlclient
 ## 1.8 Bash Color Codes
 
 See http://linuxmanage.com/colored-man-pages-log-files.html
+
+## 1.9 Django KeyError
+
+I was unable to run tests with `make test`
+
+### 1.9.1 Issue
+Got this error
+
+```
+...
+e 189, in connect
+test_1     |     self.connection = self.get_new_connection(conn_params)
+test_1     |   File "/appenv/local/lib/python2.7/site-packages/django/db/backends/mysql/base.py", line 276, in get_new_connection
+test_1     |     conn.encoders[SafeBytes] = conn.encoders[bytes]
+test_1     | KeyError: <type 'str'>
+```
+
+### 1.9.2 Solution
+
+See https://github.com/PyMySQL/mysqlclient-python/issues/306
+
+This is caused by the docker script resolving mysql client to > 1.3.14 version. 
+Changing it to  == 1.3.14 fixed the issue (in setup.py):
+
+```py
+ install_requires = [ "Django>=1.9, <2.0",
+                         "django-cors-headers>=1.1.0",
+                         "djangorestframework>=3.3.0",
+                         "mysqlclient==1.3.14", #<--- changed from >=
+                         "uwsgi>=2.0", # communicates with NGINX
+```
