@@ -50,3 +50,12 @@ branch-api:latest
 zentimestamp:latest
 token-macro:latest
 jackson2-api:latest
+display-url-api:latest
+lockable-resources:latest
+apache-httpcomponents-client-4-api:latest
+matrix-project:latest
+display-url-api:latest
+pipeline-graph-analysis:latest
+jsch:latest
+variant:latest
+junit:latest
