@@ -88,3 +88,98 @@ ansible all -m command -a 'id' -o
 ansible all  -a 'id' -o
 history > .history.sh 
 ansible linux  -a 'id' -o
+cd WorkingDir/
+cd template/
+ls
+sh YamlAnsible.sh 
+ansible --version
+ansible -m ping
+ansible all -m ping
+cd ..
+cd WorkingDir
+ls
+cd diveintoansible
+lsls
+ls
+cd WorkingDir
+ls
+cd template
+ls
+ansible all -m ping
+cd ..
+cd..
+cd ..
+mkdir working
+cd ..
+ls
+cd diveintoansible/
+ls
+cd working
+ls
+ansible all -m ping
+sh YamlAnsible.sh 
+history > .history.sh
+sh YamlToJson.sh hosts.yaml
+sh JsonAnsible.sh 
+ansible -i hosts.yaml all -m ping
+ansible -i hosts.json all -m ping
+ansible -i hosts.json all -m ping -e 'ansible_port=2222'
+history > .history.sh
+cd ..
+mkdir Inventories
+cd ..
+ls
+mkdir LabSpace
+cd LabSpace/
+mkdir Inventories
+ls
+mkdir Modules
+ls
+cd ..
+cd LabSpace/
+cd Inventories/
+history > .history.sh 
+cd ..
+cd Modules/
+ansible centos1 -m setup
+ansible all -m file -a 'path=/tmp/test state=touch'
+ansible all -a 'ls /tmp/test'
+ansible all -a 'ls -l /tmp/test'
+ansible all -m file -a 'path=/tmp/test state=file mode=600'
+ansible all -a 'ls -l /tmp/test'
+ansible all -m file -a 'path=/tmp/test state=file mode=600'
+ansible all -a 'ls -l /tmp/test'
+ansible centos1 -m file -a 'path=/tmp/test state=file mode=400'
+ansible all -m file -a 'path=/tmp/test state=file mode=600'
+touch SampleFile
+ansible all -m copy -a 'src=SampleFile dest=/tmp/SampleFile'
+ansible all -a 'ls -l /tmp/'
+ansible all -m copy -a 'remote_src=yes src=/tmp/SampleFile dest=/tmp/SampleFile'
+history > history.sh
+ansible all -a 'hostname'
+ansible all -a 'hostname' -o
+ansible all -a 'touch /tmp/test_touch'
+ansible all -a 'touch /tmp/test_touch creates=/tmp/test_touch'
+ansible all -a 'rm /tmp/test_touch creates=/tmp/test_touch'
+ansible all -a 'rm /tmp/test_touch removes=/tmp/test_touch'
+ansible all -a 'touch /tmp/test_modules.txt'
+ansible all -m fetch -a 'src=/tmp/test_modules.txt dest=/tmp/fetched_file.txt'
+ls /tmp/fetched_file.txt/
+cd centos1
+cd /tmp/fetched_file.txt/
+cd centos1
+ls
+cd tmp
+ls
+popd
+cd ~
+cd LabSpace/
+ls
+cd Modules/
+history > history.sh
+cd ..
+cd YAML
+sh ShowYaml.
+sh ShowYaml.sh
+sh ShowYaml.sh Empty.yaml 
+sh ShowYaml.sh ExampleKeys.yaml 

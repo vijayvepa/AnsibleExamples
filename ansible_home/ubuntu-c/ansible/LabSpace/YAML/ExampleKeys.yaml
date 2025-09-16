@@ -1,0 +1,45 @@
+# python object representation of this file is a dictionary
+---
+string_key_1: this is a string
+string_key_2: this is another string
+single_quoted: 'quoted string'
+double_quoted: "double quoted string"
+newline_string: "this is a string\nthat contains a newline character"
+newline_noquote_incorrect: this is a string\nthat does not interpret the newline character
+noquote_correct_multiline: |
+  this is a string
+  that contains a newline character
+concatenated_string: >
+    this is a long string
+    that is concatenated into a single line
+concatenated_string_without_last_char: >-
+    this is a long string
+    that is concatenated into a single line without a trailing newline
+integer_key: 42
+quoted_integer: "42"
+is_true_1: true
+is_true_2: True
+is_true_3: TRUE
+is_true_4: yes
+is_true_5: Yes
+is_true_6: YES
+is_true_7: on
+is_true_8: On
+is_true_9: ON
+is_true_10: y
+is_true_11: Y
+array_key:
+  - item1
+  - item2
+  - item3
+example_key_1:
+  sub_example_key1: sub_example_value1
+
+example_key_2:
+  sub_example_key2: sub_example_value2
+  items:
+    - item1
+    - item2
+    - item3
+
+...
