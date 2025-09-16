@@ -183,3 +183,127 @@ sh ShowYaml.
 sh ShowYaml.sh
 sh ShowYaml.sh Empty.yaml 
 sh ShowYaml.sh ExampleKeys.yaml 
+history
+cd LabSpace/Yaml
+sh ShowYaml.sh ExampleKeys.yaml 
+sh ShowYaml.sh InlineBlock.yaml 
+sh ShowYaml.sh ExampleKeys.yaml 
+sh ShowYaml.sh Challenge.yaml 
+sh ShowYaml.sh ExampleKeys.yaml 
+sh ShowYaml.sh Challenge.yaml 
+history > history.sh
+sh ShowYaml.sh Challenge.yaml 
+cd ..
+cd PlaybooksSections/
+ansible-playbook MessageOfTheDay.playbook.yaml 
+cd ..
+ls
+cd ..
+ls
+ls -l
+chmod 600 LabSpace
+sudo chmod 600 LabSpace
+ls
+cd LabSpace
+sudo chmod 777 LabSpace
+cd LabSpace/
+ls
+cd ..
+chown LabSpace
+chown LabSpace ansible
+chown ansible LabSpace
+sudo chown ansible LabSpace
+chmod 600 LabSpace
+ls
+cd LabSpace/
+ls
+chown ansible LabSpace
+ls
+cd LabSpace/
+chmod 777 LabSpace
+ls
+cd LabSpace/
+ls
+cd PlaybooksSections/
+ls
+history|grep ANSIBLE_CONFIG
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible-playbook MessageOfTheDay.playbook.yaml 
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible --version
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible-playbook MessageOfTheDay.playbook.yaml 
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible --list-hosts
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible all --list-hosts
+cd ..
+mkdir AnsibleLabSpace
+ls
+mkdir PlaybookSections
+ls
+rm PlaybookSections/
+rmdir PlaybookSections/
+cd AnsibleLabSpace/
+mkdir PlaybookSections
+ls
+ls -l
+cd PlaybookSections/
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible all --list-hosts
+ansible --version
+ansible all --list-hosts
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible all --list-hosts
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible-playbook MessageOfTheDay.playbook.yaml 
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible all -m ping
+cd ..
+cd ~/.ssh
+ls
+rm known_hosts 
+cd ..
+sh passwordless.sh 
+cd AnsibleLabSpace/
+cd PlaybookSections/
+ANSIBLE_CONFIG=AnsibleConfig.ini ansible all -m ping
+ssh root@centos1
+ssh ansible@centos1
+cd ..
+ls
+cd LabSpace
+cd ..
+ls
+mkdir LabSpace
+ls
+cd LabSpace/
+mkdir Inventories
+mkdir Modules
+mkdir PlaybookSections
+mkdir YAML
+cd Inventories/
+ls
+sh YamlAnsible.sh 
+ls
+cd ..
+cd Modules/
+ls
+ansible all -m ping
+cd ..
+sh passwordless.sh 
+ssh -o 'StrictHostChecking=no' 'root@ubuntu1'
+ssh -o 'StrictHostKeyChecking=no' 'root@ubuntu1'
+sh passwordless.sh 
+ssh -o 'StrictHostKeyChecking=no' 'root@centos3'
+cd ~/.ssh
+ls
+rm id_rsa
+rm id_rsa.oub
+rm id_rsa.pub
+cd ..
+ssh-keygen 
+sh passwordless.sh 
+ssh -o 'StrictHostKeyChecking=no' 'root@centos3'
+ssh-copy-id root@centos3
+ssh root@centos3
+ls -l ~/.ssh
+ssh -vvv root@centos3
+ssh -vvv root@centos3 > SSH.Centos.log
+ls 
+ssh-add -l
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+ssh-add -l
+ssh -vvv root@centos3 

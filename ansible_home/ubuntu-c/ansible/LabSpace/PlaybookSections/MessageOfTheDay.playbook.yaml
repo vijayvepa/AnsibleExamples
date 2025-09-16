@@ -1,0 +1,15 @@
+---
+# Hosts
+-
+  hosts: centos
+  user: root
+# Vars
+# Tasks
+  tasks:
+    - name: Copy the Message of the Day
+      copy:
+        src: CentosMessageOfTheDay.txt
+        dest: /etc/motd
+# Handlers
+# Roles
+...
