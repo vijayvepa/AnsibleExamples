@@ -1,1 +1,0 @@
-python3 -c 'import sys, yaml, json;json.dump(yaml.load(sys.stdin.read(), Loader=yaml.FullLoader), sys.stdout, indent=4)' < $1 > ${1%.yaml}.json

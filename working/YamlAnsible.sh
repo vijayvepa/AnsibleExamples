@@ -1,1 +1,0 @@
-ANSIBLE_CONFIG=./AnsibleYaml.cfg ansible all -m ping

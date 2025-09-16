@@ -1,1 +1,0 @@
-ANSIBLE_CONFIG=./JsonAnsible.cfg ansible all -m ping
