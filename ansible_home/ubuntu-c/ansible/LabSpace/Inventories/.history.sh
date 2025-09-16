@@ -125,3 +125,17 @@
   125  ansible -i hosts.json all -m ping
   126  ansible -i hosts.json all -m ping -e 'ansible_port=2222'
   127  history > .history.sh
+  128  cd ..
+  129  mkdir Inventories
+  130  cd ..
+  131  ls
+  132  mkdir LabSpace
+  133  cd LabSpace/
+  134  mkdir Inventories
+  135  ls
+  136  mkdir Modules
+  137  ls
+  138  cd ..
+  139  cd LabSpace/
+  140  cd Inventories/
+  141  history > .history.sh 
