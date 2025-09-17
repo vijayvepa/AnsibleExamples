@@ -1,0 +1,1 @@
+python3 JsonToYaml.py < $1 > ${1%.json}.yaml
