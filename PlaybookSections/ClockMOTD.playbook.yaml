@@ -1,0 +1,21 @@
+---
+- 
+  hosts: ubuntu
+
+  tasks:
+  - name: Copy Dynamic MOTD 
+    copy:
+      src: DynamicMOTD.sh
+      dest: /etc/update-motd.d/60-DynamicMOTD
+      mode: preserve
+    notify: Debug, if there's a change 
+  - name: Remove Static MOTD
+    ansible.builtin.file:
+      path: /etc/motd
+      state: absent
+    notify: Debug, if there's a change 
+  handlers:
+  - name: Debug, if there's a change 
+    debug: 
+      msg: Change occurred
+...

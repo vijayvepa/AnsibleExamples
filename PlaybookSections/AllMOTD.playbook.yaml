@@ -1,0 +1,34 @@
+---
+-
+  hosts: linux
+  user: root
+
+  vars:
+    motd_centos: |
+       Welcome to Vijay's CentOS Box
+       Have Fun!
+    motd_ubuntu: |
+      Welcome to Vijay's Ubuntu Box
+      Have Fun! 
+      
+  tasks:
+  - name: Configure the CentOS message of the day
+    copy:
+      content: "{{ motd_centos }}"
+      dest: /etc/motd
+    notify: MOTD Changed
+    when: ansible_distribution == "CentOS"
+
+  - name: Configure the Ubuntu message of the day
+    copy:
+      content: "{{ motd_ubuntu }}"
+      dest: /etc/motd
+    notify: MOTD Changed
+    when: ansible_distribution == "Ubuntu"
+
+  handlers:
+  - name: MOTD Changed
+    debug:
+      msg: The MOTD was changed for {{ ansible_distribution }}
+  
+...

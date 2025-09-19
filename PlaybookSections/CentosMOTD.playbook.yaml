@@ -1,0 +1,24 @@
+---
+-
+  hosts: centos
+  user: root
+  gather_facts: False
+
+  vars:
+    motd: |
+       Welcome to Vijay's Var Box
+       Have Fun!
+      
+  tasks:
+  - name: Copy the message of the day
+    copy:
+      content: "{{ motd }}"
+      dest: /etc/motd
+    notify: MOTD Changed
+
+  handlers:
+  - name: MOTD Changed
+    debug:
+      msg: The MOTD was changed
+  
+...
