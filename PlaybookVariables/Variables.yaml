@@ -1,0 +1,6 @@
+---
+example_key: example_value_2
+external_dict:
+  external_dict_key: This is a dictionary value
+
+...

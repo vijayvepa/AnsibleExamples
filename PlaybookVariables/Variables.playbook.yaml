@@ -1,0 +1,59 @@
+- 
+  hosts: centos1
+  gather_facts: True 
+
+
+  vars_prompt:
+  - name: username
+    private: True
+  vars_files:
+    - Variables.yaml
+  vars:
+    example_key: example_value
+    dict:
+      dict_key: This is a dictionary value
+    inline_dict:
+      {inline_dict_key: This is an inline dict value}
+    named_list:
+      - item 1
+      - item 2 
+      - item 3 
+      - item 4
+    inline_named_list: [item1, item2, item3, item4]
+
+  tasks:
+    - name: Host Vars 
+      debug:
+        msg: "Host Vars Ansible Port {{ hostvars[ansible_hostname].ansible_portee | default('22') }}"
+    - name: Example Key Test 
+      debug:
+        msg: "Example Key: {{ example_key  }}"
+    - name: Example Username 
+      debug:
+        msg: "Username: {{ username  }}"
+    - name: External Dict
+      debug:
+        msg: "External Dict: {{ external_dict  }}"
+    - name: Named List
+      debug:
+        msg: |
+         "Named List: {{ named_list  }}"
+         "Named List Item 1 : {{ named_list.0  }}"
+         "Named List Item 1 Alt : {{ named_list[0]  }}"
+    - name: Inline Named List
+      debug:
+        msg: |
+         "Named List: {{ inline_named_list  }}"
+         "Named List Item 1 : {{ inline_named_list.0  }}"
+         "Named List Item 1 Alt : {{ inline_named_list[0]  }}"
+    - name: Dict Key Test 
+      debug:
+        msg: | 
+          "Dict: {{ dict  }}, 
+           Dict Key: {{ dict.dict_key }}, Dict Key Alt {{ dict['dict_key'] }}"
+    - name: Inline Dict Key Test 
+      debug:
+        msg: | 
+          "Inline Dict: {{ inline_dict  }}, 
+           Dict Key: {{ inline_dict.inline_dict_key }}, Dict Key Alt {{ inline_dict['inline_dict_key'] }}"
+
