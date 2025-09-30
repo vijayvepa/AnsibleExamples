@@ -20,9 +20,14 @@
       ansible.builtin.service:
         name: nginx
         state: restarted
+    - name: Unarchive playbook_stacker
+      ansible.builtin.unarchive:
+        src: files/playbook_stacker.zip
+        dest: "{{ nginx_root_location }}"
+        mode: '755'
     - name: Template index.html.base.j2 to index.html on target
       ansible.builtin.template:
-        src: index.html-logos.j2
+        src: index.html.j2
         dest: "{{ nginx_root_location }}/index.html"
         mode: '644'
 
