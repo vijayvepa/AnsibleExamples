@@ -1,3 +1,32 @@
 ---
 - name: Nginx
+  hosts: linux
+
+  tasks:
+    - name: Install EPEL
+      when: ansible_distribution == 'CentOS'
+      ansible.builtin.dnf:
+        name: epel-release
+        update_cache: true
+        state: present
+    - name: Install Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+    - name: Restart Nginx
+      notify: Check Nginx Http
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+    - name: Template index.html.base.j2 to index.html on target
+      ansible.builtin.template:
+        src: index.html-base.j2
+        dest: "{{ nginx_root_location }}/index.html"
+        mode: '644'
+
+  handlers:
+    - name: Check Nginx Http
+      ansible.builtin.uri:
+        url: http://{{ ansible_default_ipv4.address }}/
+        status_code: [200]
 ...
