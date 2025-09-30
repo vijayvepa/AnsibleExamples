@@ -20,7 +20,7 @@
         state: restarted
     - name: Template index.html.base.j2 to index.html on target
       ansible.builtin.template:
-        src: index.html-base.j2
+        src: index.html-ansible_managed.j2
         dest: "{{ nginx_root_location }}/index.html"
         mode: '644'
 
